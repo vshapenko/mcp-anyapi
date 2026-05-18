@@ -1,0 +1,16 @@
+kinds: [NAME, PHONE, EMAIL, PLATE, SLOT, ADDR]
+
+columnRules:
+  NAME: [name, last_name, first_name, tenant, tenant_name]
+  PHONE: [phone, phone_number]
+  EMAIL: [email]
+  PLATE: [plate_number, plate_code]
+  SLOT: [parking_slot, parking_floor_name, label]
+  ADDR: [address, property_address]
+
+regexRules:
+  PHONE: '\+?\d{8,15}'
+  EMAIL: '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+
+skipFields: [id, uuid, created_at, updated_at]
+skipRoles: []

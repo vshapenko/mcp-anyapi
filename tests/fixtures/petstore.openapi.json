@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Petstore", "version": "1.0.0" },
+  "components": {
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://example.com/oauth",
+            "scopes": {
+              "read:pets": "Read pets",
+              "write:pets": "Write pets"
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/pets": {
+      "get": {
+        "operationId": "listPets",
+        "summary": "List all pets",
+        "parameters": [
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "security": [{ "petstore_auth": ["read:pets"] }]
+      },
+      "post": {
+        "operationId": "createPet",
+        "summary": "Create a pet",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "name": { "type": "string" } },
+                "required": ["name"]
+              }
+            }
+          }
+        },
+        "security": [{ "petstore_auth": ["write:pets"] }],
+        "x-mcp-tags": ["mutation"]
+      }
+    },
+    "/pets/{petId}": {
+      "get": {
+        "operationId": "getPet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ]
+      }
+    }
+  }
+}

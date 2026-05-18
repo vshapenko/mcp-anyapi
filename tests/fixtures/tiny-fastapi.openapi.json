@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Luminara-shaped slice", "version": "1.0.0" },
+  "paths": {
+    "/admin/users": {
+      "get": {
+        "operationId": "list_users",
+        "summary": "List users",
+        "parameters": [
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "tags": ["admin", "users"]
+      }
+    },
+    "/admin/users/{user_id}": {
+      "patch": {
+        "operationId": "update_user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "x-mcp-required-scope": "USER_DIRECTORY.UPDATE"
+      }
+    }
+  }
+}
